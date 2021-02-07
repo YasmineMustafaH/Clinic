@@ -1,0 +1,166 @@
+<!------------First tab: contains Doctors Registration------------------------------------->
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="New Doctor"> <form method='POST' (ngSubmit)="saveDoctor(doctoruserForm.value)" [formGroup]="doctoruserForm"  class="text-center border border-light p-5">
+
+    <div class="example-label">Doctor's Registration</div>
+
+ 
+<mat-form-field appearance="fill">
+  <mat-label>First Name</mat-label>
+  <input formControlName='dfirstName' matInput>
+</mat-form-field>
+
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Last Name</mat-label>
+  <input formControlName='dlastName' matInput>
+</mat-form-field>
+
+
+<div>  
+<mat-form-field appearance="fill">
+  <mat-label>Age</mat-label>
+  <input formControlName='dage' matInput>
+</mat-form-field>
+</div>
+
+<div>  
+<mat-form-field appearance="fill">
+  <mat-label>Specialization</mat-label>
+  <input formControlName='specialization' matInput>
+</mat-form-field>
+</div>
+
+  
+<mat-form-field appearance="fill">
+  <mat-label>Email</mat-label>
+  <input formControlName='demail' matInput>
+</mat-form-field>
+
+
+ 
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input formControlName='dpassword' matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+<div>
+
+
+     <mat-card-actions>
+              <button mat-raised-button type="submit" color="primary">Register</button>
+     </mat-card-actions>
+</div>
+    
+
+</form>
+
+   <div class="row"  *ngIf="showMsgd">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+             <strong>Registration Success, Please Login!</strong> 
+          </p>
+        </div>
+      </div>
+</mat-tab>
+<!------------Second tab: contains Patients Registration------------------------------------->
+  <mat-tab label="New Patient"> <form   method='POST' (ngSubmit)="savePatient(patientuserForm.value)" [formGroup]="patientuserForm"  class="text-center border border-light p-5">
+
+   <div class="example-label">Patient's Registration</div>
+
+ 
+<mat-form-field appearance="fill">
+  <mat-label>First Name</mat-label>
+  <input formControlName='pfirstName'  matInput>
+</mat-form-field>
+
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Last Name</mat-label>
+  <input  formControlName='plastName' matInput>
+</mat-form-field>
+
+
+<div>  
+<mat-form-field appearance="fill">
+  <mat-label>Age</mat-label>
+  <input   formControlName='page' matInput>
+</mat-form-field>
+</div>
+
+<div>  
+<mat-form-field appearance="fill">
+  <mat-label>Symptoms</mat-label>
+   <textarea  formControlName='symptoms' matInput></textarea>
+</mat-form-field>
+</div>
+
+  
+<mat-form-field appearance="fill">
+  <mat-label>Email</mat-label>
+  <input formControlName='pemail' matInput>
+</mat-form-field>
+
+ 
+ 
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input formControlName='ppassword' matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+<div>
+     <mat-card-actions>
+            <button mat-raised-button type="submit" color="primary">Register</button>
+     </mat-card-actions>
+</div>
+  
+   <div class="row"  *ngIf="showMsgp">
+        <div >
+          <p >
+              <strong>Registration Success, Please Login!</strong> 
+
+          </p>
+        </div>
+      </div>
+</form> </mat-tab>
+<!------------------------------------Login Page------------------------------------>
+
+  <mat-tab label="Login"> <form class="text-center border border-light p-5">
+
+   <div class="example-label">Login</div>
+
+
+ <div> 
+<mat-form-field appearance="fill">
+  <mat-label>Email</mat-label>
+  <input matInput>
+</mat-form-field>
+</div>
+
+ 
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+<div>
+
+  <button mat-stroked-button color="warn">Forgot Passowrd</button> 
+     <mat-card-actions>
+            <button mat-raised-button type="submit" (click)="openProfile()" color="primary">Login</button>
+     </mat-card-actions>
+</div>
+  
+</form> </mat-tab>
+
+</mat-tab-group>
+
+
