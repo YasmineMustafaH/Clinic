@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 flask-cors = "*"
 flask-restful = "*"
+mongojoin = "*"
+imutils = "*"
+opencv-python = "*"
+pytesseract = "*"
+pillow = "*"
 
 [dev-packages]
 

@@ -1,1 +1,62 @@
-<p>profile works!</p>
+<hr>
+<p *ngIf="serverData">Welcome Dr. {{serverData.firstName}}</p>
+
+<!------------First tab: view patients------------------------------------->
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="View  Patients">
+<ag-grid-angular
+    style="width: 500px; height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="patients"
+    [columnDefs]="columnDefs"
+>
+</ag-grid-angular> 
+</mat-tab>
+<!------------Second tab: Add Record------------------------------------->
+  <mat-tab label="Add Patient Info"> 
+
+
+ 
+  <h2>Insert Blood Pressure Image</h2>
+  <input  type="file" name="file" id="file" (change)="onFileChangedbp($event)">
+  <h2>Result: </h2>
+  <p>
+    {{ resultbp }}
+  </p>
+<hr>
+ <h2>Insert Prescription Image</h2>
+  <input  type="file" name="file" id="file" (change)="onFileChangedpres($event)">
+  <h2>Result: </h2>
+  <p>
+    {{ resultpres }}
+  </p>
+<hr>
+<label>Email of Patient</label>
+      <input #email type = "text" name = "email" placeholder = "email" >
+  
+ 
+<div>
+
+<br>
+            <button mat-raised-button type="submit" (click)="addPatientInfo(email.value)"  color="primary">Add</button>
+    
+</div>
+
+   <div class="row"  *ngIf="showMsg">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+             <strong>Information Added!</strong> 
+          </p>
+        </div>
+      </div>
+  
+   </mat-tab>
+<!------------------------------------Login Page------------------------------------>
+
+  <mat-tab label="Graphs"> </mat-tab>
+
+</mat-tab-group>
+
+<router-outlet></router-outlet>
+
+<router-outlet></router-outlet>

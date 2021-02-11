@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router'
+import { Router, NavigationExtras } from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -9,16 +9,25 @@ import { Router } from '@angular/router'
   styleUrls: ['./root.component.css']
 })
 
-
 export class RootComponent implements OnInit {
+
+/* Forms to send info to backend */
  patientuserForm: FormGroup;
  doctoruserForm: FormGroup;
- hide = true;
+ loginForm: FormGroup;
+ 
+/* hide is used to show or hide password */
+hide = true;
+
+/* booleans to show success messeges */
 showMsgd: boolean = false;
 showMsgp: boolean = false;
-
+showTab: boolean = false;
+serverData: any = [];
+/*--------------------------------------------------------------------------*/
+/* constructor to initialize variables */
  constructor(private formBuilder: FormBuilder,private http: HttpClient, private _router: Router) {
-
+    this.serverData = [];
     this.doctoruserForm = this.formBuilder.group({
       dfirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       dlastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
@@ -36,10 +45,18 @@ showMsgp: boolean = false;
       page: ['',[Validators.required]],
       symptoms: ['',[Validators.required]]
     });
+
+    this.loginForm = this.formBuilder.group({
+      email: ['',[Validators.required, Validators.email]],
+      password: ['',[Validators.required]]
+    });
+
+
 }
 
-
+/*--------------------------------------------------------------------------*/
 ngOnInit() {
+
     this.doctoruserForm = this.formBuilder.group({
       dfirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       dlastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
@@ -52,13 +69,19 @@ ngOnInit() {
       pfirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       plastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       pemail: ['',[Validators.required, Validators.email]],
-      ppassword: ['',[Validators.required]],
+       ppassword: ['',[Validators.required]],
       page: ['',[Validators.required]],
       symptoms: ['',[Validators.required]]
     });
+
+      this.loginForm = this.formBuilder.group({
+      email: ['',[Validators.required, Validators.email]],
+      password: ['',[Validators.required]]
+    });
+
   }
-
-
+/*--------------------------------------------------------------------------*/
+/* Send doctor registration info to python */
 saveDoctor(doctor: any){
 let headers = new HttpHeaders();
 headers.append('Content-Type', 'application/json');
@@ -69,8 +92,8 @@ headers.append('Content-Type', 'application/json');
       })
     
   }
-
-
+/*--------------------------------------------------------------------------*/
+/* Send patient registration info to python */
 savePatient(patient: any){
 let headers = new HttpHeaders();
 headers.append('Content-Type', 'application/json');
@@ -81,9 +104,25 @@ headers.append('Content-Type', 'application/json');
       })
     
   }
-
-openProfile()
+/*--------------------------------------------------------------------------*/
+/* Send login info to backend and route to profile */
+openProfile(user: any)
 {
 
-
+let headers = new HttpHeaders();
+headers.append('Content-Type', 'application/json');
+      this.http.post('http://127.0.0.1:5002/Login', JSON.stringify(user), {headers: headers})
+      .subscribe((data)=>{
+         this.serverData = data as JSON /* convert to JSON */
+/* get parameters needed to load profile page */ 
+let navigationExtras: NavigationExtras = {
+        queryParams: {
+            serverData: this.serverData            
+        },
+    };
+    this.showTab = true;
+   /* route to profile */
+    this._router.navigate(['./profile'], navigationExtras);
+      })
+ 
 } }

@@ -12,9 +12,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component'
 import { RouterModule, Routes } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AgGridModule } from 'ag-grid-angular';
 const appRoutes: Routes = [
-  { path: 'profile', redirectTo: '/profile', pathMatch: 'full' },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
@@ -30,13 +32,15 @@ const appRoutes: Routes = [
     MatInputModule, 
     MatButtonModule,
     MatCardModule,
+    MatGridListModule,
     MatIconModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-  
+   MatFormFieldModule,
+   AgGridModule.withComponents([])
   ],
-  exports:[RouterModule],
-  providers: [{provide: APP_BASE_HREF, useValue: '/' }],
+  exports:[RouterModule, MatFormFieldModule, MatInputModule ],
+
   bootstrap: [RootComponent]
 })
 export class AppModule { }
